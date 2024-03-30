@@ -16,7 +16,13 @@ export class JsonPipeline {
     return pipeline.reduce((currentValue, item) => {
       savedVariablesMap.set(CURRENT_VALUE, currentValue);
 
-      return processPipelineItem(item, savedVariablesMap);
+      const result = processPipelineItem(item, savedVariablesMap);
+
+      if (item.saveTo && typeof item.saveTo === "string") {
+        savedVariablesMap.set(item.saveTo, result);
+      }
+
+      return result;
     }, undefined as unknown);
   }
 }
