@@ -19,7 +19,7 @@
     "dev": "vite",
     "build": "eslint . && tsc && vite build",
     "preview": "vite preview",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint ."
   },
   "devDependencies": {
