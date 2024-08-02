@@ -1,5 +1,5 @@
 export const getValueByPath = (
-  dictionary: Map<string, unknown>,
+  dictionary: Record<string, unknown>,
   path: string,
 ) => {
   const pathArray = path.match(/([^[.\]])+/g);
@@ -12,7 +12,7 @@ export const getValueByPath = (
     throw new Error(`Something went wrong with argument: ${path}`);
   }
 
-  const rootObject = dictionary.get(root);
+  const rootObject = dictionary[root];
   if (rootObject === undefined) {
     throw new Error(`There is no saved argument with name ${root}`);
   }

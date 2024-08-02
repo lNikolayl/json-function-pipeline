@@ -8,15 +8,19 @@ describe("[class] JsonPipeline", () => {
     returnVar: (arg: number) => arg,
   };
 
-  const jsonPipeline = new JsonPipeline(vars);
+  const instance = new JsonPipeline(vars);
 
   test("should return last function result", () => {
     const pipeline: PipelineItem[] = [
       { functionNameToCall: "returnVar", functionArgs: ["$varNumber"] },
-      { functionNameToCall: "returnVar", functionArgs: ["$varString"] },
+      {
+        functionNameToCall: "returnVar",
+        saveTo: "varString",
+        functionArgs: ["$varString"],
+      },
     ];
 
-    const pipelineResult = jsonPipeline.applyPipeline(pipeline);
+    const pipelineResult = instance.apply(pipeline);
 
     expect(pipelineResult).toBe(vars.varString);
   });
@@ -28,10 +32,14 @@ describe("[class] JsonPipeline", () => {
         saveTo: "strValue",
         functionArgs: ["$varString"],
       },
-      { functionNameToCall: "returnVar", functionArgs: ["$strValue"] },
+      {
+        functionNameToCall: "returnVar",
+        saveTo: "varString",
+        functionArgs: ["$strValue"],
+      },
     ];
 
-    const pipelineResult = jsonPipeline.applyPipeline(pipeline);
+    const pipelineResult = instance.apply(pipeline);
 
     expect(pipelineResult).toBe(vars.varString);
   });
@@ -48,7 +56,7 @@ describe("[class] JsonPipeline", () => {
       ) => (sourceObj[fieldName] = value),
     };
 
-    const jsonPipeline = new JsonPipeline(data);
+    const instance = new JsonPipeline(data);
 
     const pipeline: PipelineItem[] = [
       {
@@ -57,8 +65,18 @@ describe("[class] JsonPipeline", () => {
       },
     ];
 
-    jsonPipeline.applyPipeline(pipeline);
+    instance.apply(pipeline);
 
     expect(data.state.field).toBe("newValue");
+  });
+
+  test("should throw error if dictionaty immutable", () => {
+    const data = Object.freeze({
+      key: "value",
+    });
+
+    expect(() => new JsonPipeline(data)).toThrow(
+      "Dictionary should be mutable",
+    );
   });
 });

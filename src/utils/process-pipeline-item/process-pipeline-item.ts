@@ -5,7 +5,7 @@ import { SPECIAL_START_CHAR } from "../../constants";
 
 export const processPipelineItem = (
   pipelineItem: PipelineItem,
-  dictionary: Map<string, unknown>,
+  dictionary: Record<string, unknown>,
 ) => {
   const functionToCall = getValueByPath(
     dictionary,

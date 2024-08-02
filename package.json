@@ -16,9 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
     "build": "eslint . && tsc && vite build",
-    "preview": "vite preview",
     "test": "jest --coverage",
     "lint": "eslint ."
   },
