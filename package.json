@@ -1,24 +1,47 @@
 {
   "name": "json-function-pipeline",
-  "private": true,
-  "version": "0.0.0",
+  "description": "tool to build up complex pipeline based on JSON structure",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     }
   },
+  "keywords": [
+    "json",
+    "pipeline",
+    "pipe",
+    "sdui",
+    "server driven",
+    "function",
+    "json tool"
+  ],
   "files": [
     "dist"
   ],
+  "homepage": "https://github.com/lNikolayl/json-function-pipeline",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lNikolayl/json-function-pipeline"
+  },
+  "author": {
+    "name": "lNikolayl]",
+    "url": "https://github.com/lnikolayl"
+  },
   "scripts": {
-    "build": "eslint . && tsc && vite build",
+    "prepublishOnly": "npm test && npm run lint && npm run format",
+    "build": "tsc && vite build",
     "test": "jest --coverage",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "local-publish": "npx yalc publish",
+    "prepare": "npm run build",
+    "format": "prettier --check ."
   },
   "devDependencies": {
     "@types/jest": "29.5.12",
@@ -35,7 +58,7 @@
     "prettier": "3.2.5",
     "ts-jest": "29.1.2",
     "typescript": "5.4.2",
-    "vite": "5.1.4",
-    "vite-plugin-dts": "3.7.3"
+    "vite": "5.3.5",
+    "vite-plugin-dts": "3.9.1"
   }
 }
